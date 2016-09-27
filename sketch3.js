@@ -10,7 +10,7 @@ var played = false;
 
 function preload(){
   //soundFormats('mp3');
- // crashsound = loadSound('crash.mp3');
+  crashsound = loadSound('https://dl.dropboxusercontent.com/u/16897511/crash.mp3');
 }
 
 function setup() {
@@ -134,7 +134,7 @@ Ball.prototype.display = function() {
 Ball.prototype.checkEdges = function() {
   if ((this.position.y + 18 > height) || (this.position.y - 18 <0) ||(this.position.x +18 > width) || (this.position.x - 18<0)   ) {
     if (!played){
-     // crashsound.play();
+      crashsound.play();
       played = true;
     }
     this.velocity.mult(0);
