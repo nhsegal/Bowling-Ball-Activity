@@ -23,14 +23,15 @@ function setup() {
   resetbutton.mousePressed(reset);
   //obstacle = new Obstacle(width/3, height/2, 20, 40);
   trail = [];
-  /*
+  
   for (var i=0; i<6; i++){
     trail.push(new Ball( 4, ball.position.x, ball.position.y));
   }
-  */
+  
 }
 
 function toggleTrail() {
+  
   if (showtrail){
     trailbutton.html('show trail');
     trail = [];
@@ -41,6 +42,7 @@ function toggleTrail() {
   if (!showtrail){
     trailbutton.html('hide trail');     
   }
+
   showtrail = !showtrail;
 }
 
@@ -50,15 +52,17 @@ function draw() {
   //obstacle.display();
   ball.checkEdges();
   //ball.checkCollision(obstacle);
-  if (showtrail){
+  //if (showtrail){
     if (frameCount%18 == 0){
       trail.push(new Ball( 4, ball.position.x, ball.position.y))
       trash = trail.shift();
     }
     for (var i=0; i<trail.length; i++){
-      trail[i].display();
+      if (showtrail){
+        trail[i].display();
+      }
     } 
-  }
+  //}
   ball.display();
 }
 
