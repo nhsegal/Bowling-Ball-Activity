@@ -23,10 +23,11 @@ function setup() {
   resetbutton.mousePressed(reset);
   //obstacle = new Obstacle(width/3, height/2, 20, 40);
   trail = [];
+  /*
   for (var i=0; i<6; i++){
     trail.push(new Ball( 4, ball.position.x, ball.position.y));
   }
-
+  */
 }
 
 function toggleTrail() {
