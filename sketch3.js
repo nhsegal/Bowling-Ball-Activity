@@ -69,11 +69,14 @@ function draw() {
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     ball.force = createVector(-1,0);
-  } else if (keyCode === RIGHT_ARROW) {
+  }
+  if (keyCode === RIGHT_ARROW) {
     ball.force = createVector(1,0);
-  } else if (keyCode === UP_ARROW) {
+  }
+  if (keyCode === UP_ARROW) {
     ball.force = createVector(0,-1);
-  } else if (keyCode === DOWN_ARROW) {
+  }
+  if (keyCode === DOWN_ARROW) {
     ball.force = createVector(0,1);
   }
 }
