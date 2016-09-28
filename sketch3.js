@@ -79,6 +79,7 @@ function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     ball.force = createVector(0,1);
   }
+  return false;
 }
 
 // Restart all the Mover objects randomly
