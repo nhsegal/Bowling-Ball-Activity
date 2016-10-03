@@ -21,9 +21,7 @@ function setup() {
   trailbutton.mousePressed(toggleTrail); 
   resetbutton = createButton('reset');
   resetbutton.mousePressed(reset);
-  //obstacle = new Obstacle(width/3, height/2, 20, 40);
   trail = [];
-  
   for (var i=0; i<6; i++){
     trail.push(new Ball( 4, ball.position.x, ball.position.y));
   }
@@ -42,27 +40,27 @@ function toggleTrail() {
   if (!showtrail){
     trailbutton.html('hide trail');     
   }
-
   showtrail = !showtrail;
 }
 
 function draw() {
-  background(137);
+  background(237);
+  strokeWeight(.2);
+  for (var i = 0; i < 23; i++){
+    line(0,40*i,width,40*i);
+    line(40*i,0, 40*i, height);
+  }
   ball.update();
-  //obstacle.display();
   ball.checkEdges();
-  //ball.checkCollision(obstacle);
-  //if (showtrail){
-    if (frameCount%18 == 0){
-      trail.push(new Ball( 4, ball.position.x, ball.position.y))
-      trash = trail.shift();
+  if (frameCount%18 == 0){
+    trail.push(new Ball( 4, ball.position.x, ball.position.y));
+    trail.shift();
+  }
+  for (var i=0; i<trail.length; i++){
+    if (showtrail){
+      trail[i].display();
     }
-    for (var i=0; i<trail.length; i++){
-      if (showtrail){
-        trail[i].display();
-      }
-    } 
-  //}
+  } 
   ball.display();
 }
 
@@ -87,15 +85,11 @@ function reset() {
   ball.position = createVector(width/2,height/2);
   ball.velocity.mult(0);
   ball.force.mult(0);
-  ball.display();
-  trail = [];
-  if (showtrail){
-    trailbutton.html('show trail');
-    for (var i=0; i<6; i++){
-      trail.push(new Ball( 4, ball.position.x, ball.position.y));
-    }
-    showtrail = false;
-   }
+  
+  for (var i=0; i<6; i++){
+    trail.push(new Ball( 4, ball.position.x, ball.position.y));
+  }
+   
 }
   
 function Ball(m,x,y) {
@@ -141,15 +135,22 @@ Ball.prototype.display = function() {
 };
 
 Ball.prototype.checkEdges = function() {
-  if ((this.position.y + 18 > height) || (this.position.y - 18 <0) ||(this.position.x +18 > width) || (this.position.x - 18<0)   ) {
-    if (!played){
-      crashsound.play();
-      played = true;
-    }
-    this.velocity.mult(0);
+  if (((this.position.y + 18 > height) || (this.position.y - 18 <0)) && !played){
+    this.velocity.y = -0.2*this.velocity.y; 
+    this.velocity.x = 0.5*this.velocity.x; 
+    crashsound.play();
+    played = true;
   }
-  else {
-    played = false;
+  
+  if (((this.position.x + 18 > width) || (this.position.x - 18<0)) && !played){
+    this.velocity.y = 0.5*this.velocity.y; 
+    this.velocity.x = -0.2*this.velocity.x; 
+    crashsound.play();
+    played = true;
+  }
+  
+  if ((this.position.y + 20 < height) && (this.position.y - 20 >0) && (this.position.x +20 <width) && (this.position.x - 20>0)){
+      played = false;
   }
 };
 
