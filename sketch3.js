@@ -9,8 +9,8 @@ var played = false;
 //var obstacle;
 
 function preload(){
-  //soundFormats('mp3');
-  crashsound = loadSound('https://dl.dropboxusercontent.com/u/16897511/crash.mp3');
+  soundFormats('mp3');
+  crashsound = loadSound('crash.mp3');
 }
 
 function setup() {
