@@ -10,7 +10,7 @@ var played = false;
 
 function preload(){
   soundFormats('mp3');
-  crashsound = loadSound('crash.mp3');
+  crashsound = loadSound('crash2.mp3');
 }
 
 function setup() {
