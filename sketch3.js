@@ -29,7 +29,6 @@ function setup() {
 }
 
 function toggleTrail() {
-  
   if (showtrail){
     trailbutton.html('show trail');
     trail = [];
@@ -85,9 +84,10 @@ function reset() {
   ball.position = createVector(width/2,height/2);
   ball.velocity.mult(0);
   ball.force.mult(0);
-  
+  trail = [];
   for (var i=0; i<6; i++){
     trail.push(new Ball( 4, ball.position.x, ball.position.y));
+    trail.shift();
   }
    
 }
