@@ -6,7 +6,6 @@ var resetbutton;
 var showtrail = false;
 var crashsound;
 var played = false;
-//var obstacle;
 
 function preload(){
   soundFormats('mp3');
@@ -84,12 +83,16 @@ function reset() {
   ball.position = createVector(width/2,height/2);
   ball.velocity.mult(0);
   ball.force.mult(0);
-  trail = [];
-  for (var i=0; i<6; i++){
-    trail.push(new Ball( 4, ball.position.x, ball.position.y));
-    trail.shift();
-  }
-   
+
+  for (var i=0; i<trail.length; i++){
+    trail[i].position.x = ball.position.x;
+    trail[i].position.y = ball.position.y;  
+    /*if (showtrail){
+      trail[i].display();
+    }
+    */
+  }   
+  
 }
   
 function Ball(m,x,y) {
@@ -153,23 +156,3 @@ Ball.prototype.checkEdges = function() {
       played = false;
   }
 };
-
-/*
-Ball.prototype.checkCollision = function(o) {
-  if ((this.position.y + 17 > o.position.y) && (this.position.y -17 < (o.position.y+o.height)) && 
-  (this.position.x +17> o.position.x) && (this.position.x -17 < (o.position.x+o.width))   ) {
-    this.velocity.mult(0);
-  }
-}
-
-function Obstacle(x,y,w,h) {
-  this.position = createVector(x,y);
-  this.width = w;
-  this.height = h;
-}
-
-Obstacle.prototype.display = function(){
-  fill(240);
-  rect(this.position.x, this.position.y, this.width, this.height);
-}
-*/
