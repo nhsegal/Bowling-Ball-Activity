@@ -22,9 +22,11 @@ function setup() {
   trailbutton.mousePressed(toggleTrail);
   resetbutton = createButton('reset');
   resetbutton.mousePressed(reset);
+  resetbutton.position(20, 60);
+  trailbutton.position(90, 60);
   home = createVector(width / 2, height / 2);
   ball = new Ball(4, home.x, home.y);
-  trail = new Array(0); //.fill(ball.position);
+  trail = new Array(0);
 }
 
 function toggleTrail() {
@@ -40,6 +42,7 @@ function toggleTrail() {
 function draw() {
   background(237);
   strokeWeight(.2);
+  stroke(50);
   //Floor grid
   for (let i = 0; i < 23; i++) {
     line(0, 40 * i, width, 40 * i);
@@ -47,10 +50,6 @@ function draw() {
   }
   ball.update();
   ball.checkEdges();
-  // for (let i = 0; i < trail.length; i++) {
-  //   if
-  // }
-
   ball.display();
   counter++;
 }
