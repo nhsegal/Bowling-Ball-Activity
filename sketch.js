@@ -98,8 +98,21 @@ Ball.prototype.update = function() {
   this.force.div(this.mass);
   this.velocity.add(this.force);
   this.position.add(this.velocity);
-  if (!keyPressed) {
+  if (!(keyIsDown(LEFT_ARROW)||keyIsDown(RIGHT_ARROW)||keyIsDown(UP_ARROW)||keyIsDown(DOWN_ARROW))) {
     this.force.mult(0);
+  } else {
+    if (keyCode === LEFT_ARROW) {
+      ball.force = createVector(-1, 0);
+    }
+    if (keyCode === RIGHT_ARROW) {
+      ball.force = createVector(1, 0);
+    }
+    if (keyCode === UP_ARROW) {
+      ball.force = createVector(0, -1);
+    }
+    if (keyCode === DOWN_ARROW) {
+      ball.force = createVector(0, 1);
+    }
   }
 };
 
