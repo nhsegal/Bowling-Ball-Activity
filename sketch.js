@@ -46,7 +46,7 @@ function toggleTrail() {
 function draw() {
   background(237);
   strokeWeight(.2);
-  for (var i = 0; i < 23; i++){
+  for (let i = 0; i < 23; i++){
     line(0,40*i,width,40*i);
     line(40*i,0, 40*i, height);
   }
