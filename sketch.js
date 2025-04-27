@@ -53,7 +53,7 @@ function draw() {
   ball.display();
   counter++;
 }
-
+/*
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
     ball.force = createVector(-1, 0);
@@ -69,6 +69,7 @@ function keyPressed() {
   }
   return false;
 }
+  */
 
 function reset() {
   ball.force.mult(0);
@@ -102,39 +103,8 @@ Ball.prototype.update = function() {
   this.position.add(this.velocity);
   if (!(keyIsDown(LEFT_ARROW)||keyIsDown(RIGHT_ARROW)||keyIsDown(UP_ARROW)||keyIsDown(DOWN_ARROW))) {
     this.force.mult(0);
-  } else {
-    if (keyCode === LEFT_ARROW) {
-      if (keyIsDown(DOWN_ARROW)){
-        ball.force = createVector(-.71, .71);
-      }
-      else if (keyIsDown(UP_ARROW)){
-        ball.force = createVector(-.71, -.71);
-      }
-      else{
-        ball.force = createVector(-1, 0);
-      }
-      return
-      
-    }
-    if (keyCode === RIGHT_ARROW) {
-      if (keyIsDown(DOWN_ARROW)){
-        ball.force = createVector(.71, .71);
-      }
-      else if (keyIsDown(UP_ARROW)){
-        ball.force = createVector(.71, -.71);
-      }
-      else{
-        ball.force = createVector(1, 0);
-      }
-      return
-    }
-    if (keyCode === UP_ARROW) {
-      ball.force = createVector(0, -1);
-    }
-    if (keyCode === DOWN_ARROW) {
-      ball.force = createVector(0, 1);
-    }
-  }
+  } 
+
 };
 
 Ball.prototype.display = function() {
@@ -168,12 +138,15 @@ Ball.prototype.display = function() {
     if (keyIsDown(LEFT_ARROW)) {
       if (keyIsDown(DOWN_ARROW)){
         drawForceTriangle(this.position.x, this.position.y, -PI/4)
+        ball.force = createVector(-.71, .71);
       }
       else if (keyIsDown(UP_ARROW)){
         drawForceTriangle(this.position.x, this.position.y, PI/4)
+        ball.force = createVector(-.71, -.71);
       }
       else{
         drawForceTriangle(this.position.x, this.position.y, 0)
+        ball.force = createVector(-1, 0);
       }
       return
     };
@@ -181,23 +154,28 @@ Ball.prototype.display = function() {
     if (keyIsDown(RIGHT_ARROW)) {
       if (keyIsDown(DOWN_ARROW)){
         drawForceTriangle(this.position.x, this.position.y, -3*PI/4)
+        ball.force = createVector(.71, .71);
       }
       else if (keyIsDown(UP_ARROW)){
         drawForceTriangle(this.position.x, this.position.y, 3*PI/4)
+        ball.force = createVector(.71, -.71);
       }
       else{
         drawForceTriangle(this.position.x, this.position.y, PI)
+        ball.force = createVector(1, 0);
       }
       return
     };
 
     if (keyIsDown(DOWN_ARROW)) {
       drawForceTriangle(this.position.x, this.position.y, -PI/2)
+      ball.force = createVector(0, 1);
       return
     };
 
     if (keyIsDown(UP_ARROW)) {
       drawForceTriangle(this.position.x, this.position.y, PI/2)
+      ball.force = createVector(0, -1);
       return
     };
   }
@@ -233,5 +211,6 @@ function drawForceTriangle(ball_x, ball_y, force_angle){
      28,  - 6,
      28,  6
   );
+  
   pop();
 }
