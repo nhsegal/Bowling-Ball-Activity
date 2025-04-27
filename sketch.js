@@ -104,10 +104,29 @@ Ball.prototype.update = function() {
     this.force.mult(0);
   } else {
     if (keyCode === LEFT_ARROW) {
-      ball.force = createVector(-1, 0);
+      if (keyIsDown(DOWN_ARROW)){
+        ball.force = createVector(-.71, .71);
+      }
+      else if (keyIsDown(UP_ARROW)){
+        ball.force = createVector(-.71, -.71);
+      }
+      else{
+        ball.force = createVector(-1, 0);
+      }
+      return
+      
     }
     if (keyCode === RIGHT_ARROW) {
-      ball.force = createVector(1, 0);
+      if (keyIsDown(DOWN_ARROW)){
+        ball.force = createVector(.71, .71);
+      }
+      else if (keyIsDown(UP_ARROW)){
+        ball.force = createVector(.71, -.71);
+      }
+      else{
+        ball.force = createVector(1, 0);
+      }
+      return
     }
     if (keyCode === UP_ARROW) {
       ball.force = createVector(0, -1);
@@ -119,8 +138,6 @@ Ball.prototype.update = function() {
 };
 
 Ball.prototype.display = function() {
-
-
   if (showtrail) {
     for (const entry of trail) {
       stroke(0);
@@ -146,31 +163,46 @@ Ball.prototype.display = function() {
   noStroke();
   fill(color(200, 0, 0));
 
-  if (keyIsPressed && keyCode == LEFT_ARROW) {
-    triangle(this.position.x + 18, this.position.y,
-      this.position.x + 28, this.position.y - 6,
-      this.position.x + 28, this.position.y + 6
-    );
-  };
-  if (keyIsPressed && keyCode == RIGHT_ARROW) {
-    triangle(ball.position.x - 18, ball.position.y,
-      ball.position.x - 28, ball.position.y - 6,
-      ball.position.x - 28, ball.position.y + 6
-    );
-  };
-  if (keyIsPressed && keyCode == DOWN_ARROW) {
-    triangle(ball.position.x, ball.position.y - 18,
-      this.position.x - 6, this.position.y - 28,
-      this.position.x + 6, this.position.y - 28
-    );
-  };
-  if (keyIsPressed && keyCode == UP_ARROW) {
-    triangle(ball.position.x, ball.position.y + 18,
-      this.position.x - 6, this.position.y + 28,
-      this.position.x + 6, this.position.y + 28
-    );
-  };
-};
+  //keyIsDown(68) && keyIsDown(81)
+
+    if (keyIsDown(LEFT_ARROW)) {
+      if (keyIsDown(DOWN_ARROW)){
+        drawForceTriangle(this.position.x, this.position.y, -PI/4)
+      }
+      else if (keyIsDown(UP_ARROW)){
+        drawForceTriangle(this.position.x, this.position.y, PI/4)
+      }
+      else{
+        drawForceTriangle(this.position.x, this.position.y, 0)
+      }
+      return
+    };
+
+    if (keyIsDown(RIGHT_ARROW)) {
+      if (keyIsDown(DOWN_ARROW)){
+        drawForceTriangle(this.position.x, this.position.y, -3*PI/4)
+      }
+      else if (keyIsDown(UP_ARROW)){
+        drawForceTriangle(this.position.x, this.position.y, 3*PI/4)
+      }
+      else{
+        drawForceTriangle(this.position.x, this.position.y, PI)
+      }
+      return
+    };
+
+    if (keyIsDown(DOWN_ARROW)) {
+      drawForceTriangle(this.position.x, this.position.y, -PI/2)
+      return
+    };
+
+    if (keyIsDown(UP_ARROW)) {
+      drawForceTriangle(this.position.x, this.position.y, PI/2)
+      return
+    };
+  }
+ 
+
 
 Ball.prototype.checkEdges = function() {
   if (((this.position.y + 18 > height) || (this.position.y - 18 < 0)) && !played) {
@@ -192,3 +224,14 @@ Ball.prototype.checkEdges = function() {
     played = false;
   }
 };
+
+function drawForceTriangle(ball_x, ball_y, force_angle){
+  push();
+  translate(ball_x, ball_y);
+  rotate(force_angle);
+  triangle(18, 0,
+     28,  - 6,
+     28,  6
+  );
+  pop();
+}
